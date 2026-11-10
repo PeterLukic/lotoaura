@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #050a19;
+  --foreground: #f4f7ff;
+  --muted: #a9b4ca;
+  --accent: #9cf5e7;
+  --font-sans: var(--font-geist-sans);
 }
 
 @theme inline {
@@ -12,15 +16,596 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--background);
 }
 
 body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(5 10 25 / 24%),
+      rgb(5 10 25 / 54%) 42%,
+      #050a19 100%
+    ),
+    url("/loto-drum.png") left center / cover no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.page-shell {
+  display: grid;
+  position: relative;
+  width: min(1680px, calc(100% - 48px));
+  min-height: 100vh;
+  grid-template-columns:
+    minmax(320px, 1fr)
+    minmax(220px, 0.65fr)
+    minmax(470px, 1.15fr);
+  align-items: center;
+  gap: clamp(20px, 2vw, 36px);
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.intro {
+  grid-column: 1;
+  max-width: 500px;
+  padding: 32px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(56px, 10vh, 104px);
+  color: #f7f9ff;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.brand-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgb(156 245 231 / 40%);
+  border-radius: 11px;
+  background: rgb(156 245 231 / 10%);
+  color: var(--accent);
+  font-size: 18px;
+}
+
+.brand-light {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  line-height: 1.5;
+}
+
+.intro h1 {
+  margin: 18px 0;
+  font-size: clamp(42px, 5vw, 66px);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1.04;
+}
+
+.intro h1 span {
+  color: var(--accent);
+}
+
+.intro-text {
+  max-width: 430px;
+  margin: 0;
+  color: #c1cadd;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.range-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 32px;
+  padding: 10px 15px 10px 10px;
+  border: 1px solid rgb(201 216 255 / 13%);
+  border-radius: 999px;
+  background: rgb(6 12 30 / 52%);
+  color: #c1cadd;
+  font-size: 12px;
+}
+
+.range-number {
+  display: grid;
+  min-width: 51px;
+  height: 35px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgb(156 245 231 / 12%);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-card {
+  grid-column: 3;
+  justify-self: end;
+  width: 100%;
+  max-width: 600px;
+  padding: clamp(25px, 4vw, 38px);
+  border: 1px solid rgb(193 202 221 / 15%);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgb(16 24 46 / 96%), rgb(9 15 32 / 96%));
+  box-shadow: 0 24px 80px rgb(0 0 0 / 35%), inset 0 1px rgb(255 255 255 / 4%);
+}
+
+.form-heading {
+  margin-bottom: 25px;
+}
+
+.form-heading h2 {
+  margin: 9px 0 7px;
+  color: #f4f7ff;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.form-heading > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px 14px;
+}
+
+.form-grid label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  color: #e4e9f4;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  width: 100%;
+  min-height: 45px;
+  padding: 11px 12px;
+  border: 1px solid rgb(193 202 221 / 17%);
+  border-radius: 9px;
+  outline: none;
+  background: rgb(5 10 25 / 58%);
+  color: #f4f7ff;
+  font-size: 13px;
+  font-weight: 400;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.form-grid input::placeholder,
+.form-grid textarea::placeholder {
+  color: #748099;
+}
+
+.form-grid select:invalid {
+  color: #748099;
+}
+
+.form-grid select option {
+  background: #10182e;
+  color: #f4f7ff;
+}
+
+.form-grid textarea {
+  min-height: 88px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+  border-color: rgb(156 245 231 / 75%);
+  box-shadow: 0 0 0 3px rgb(156 245 231 / 10%);
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.field-hint {
+  margin-top: -3px;
+  color: #8d99b0;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.field-hint a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.continue-button {
+  display: flex;
+  min-height: 49px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(105deg, #9cf5e7, #8bd9f1);
+  color: #071321;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    filter 160ms ease,
+    transform 160ms ease;
+}
+
+.continue-button:hover:not(:disabled) {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+.continue-button:focus-visible {
+  outline: 3px solid rgb(156 245 231 / 45%);
+  outline-offset: 3px;
+}
+
+.continue-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* Draw panel sits in the reserved middle column on wide screens. */
+.draw-stage {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: calc(50% + 3vw);
+  display: flex;
+  width: min(260px, 16vw);
+  height: min(520px, calc(100vh - 48px));
+  min-height: 380px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 38px 16px 20px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(143 238 226 / 28%);
+  border-radius: 20px;
+  background: rgb(7 16 35 / 76%);
+  box-shadow: 0 20px 70px rgb(0 0 0 / 25%);
+  backdrop-filter: blur(8px);
+}
+
+.draw-label {
+  position: absolute;
+  top: 17px;
+  left: 19px;
+  margin: 0;
+  color: #8feee2;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.draw-orbit {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  flex: 0 0 auto;
+  animation: draw-spin 5s linear infinite;
+}
+
+.draw-ball,
+.draw-result-ball,
+.draw-idle-ball {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(143 238 226 / 80%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 25%, #536c91, #192748 72%);
+  box-shadow: 0 0 24px rgb(75 224 211 / 20%);
+  color: #f4f7ff;
+  font-weight: 800;
+}
+
+.draw-ball {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  font-size: 17px;
+  animation: draw-bob 700ms ease-in-out infinite alternate;
+}
+
+.draw-ball:nth-child(1) {
+  top: 0;
+  left: 67px;
+}
+
+.draw-ball:nth-child(2) {
+  top: 28px;
+  right: 0;
+}
+
+.draw-ball:nth-child(3) {
+  right: 7px;
+  bottom: 20px;
+}
+
+.draw-ball:nth-child(4) {
+  bottom: 0;
+  left: 67px;
+}
+
+.draw-ball:nth-child(5) {
+  bottom: 28px;
+  left: 0;
+}
+
+.draw-ball:nth-child(6) {
+  top: 28px;
+  left: 0;
+}
+
+.draw-ball:nth-child(even) {
+  animation-delay: 250ms;
+}
+
+.draw-status {
+  margin: 18px 0 0;
+  color: #d2d9ea;
+  font-size: 13px;
+  text-align: center;
+}
+
+.draw-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+}
+
+.draw-result-ball {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  animation: draw-pop 350ms ease-out both;
+}
+
+.draw-reading {
+  margin: 18px 0 0;
+  color: #d2d9ea;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.draw-idle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #c2cbe0;
+  text-align: center;
+}
+
+.draw-idle p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.draw-idle-ball {
+  width: 72px;
+  height: 72px;
+  color: #8feee2;
+  font-size: 27px;
+}
+
+.error-message {
+  margin: 16px 0 0;
+  color: #ffb4b4;
+  font-size: 13px;
+}
+
+.disclaimer {
+  margin: 18px 0 0;
+  color: #8490a8;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@keyframes draw-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes draw-bob {
+  to {
+    margin-top: 10px;
+  }
+}
+
+@keyframes draw-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Use a two-column layout when there is not enough room for the center panel. */
+@media (max-width: 1100px) {
+  .page-shell {
+    width: min(1020px, calc(100% - 40px));
+    grid-template-columns: minmax(0, 0.9fr) minmax(400px, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  .intro {
+    grid-column: 1;
+  }
+
+  .form-card {
+    grid-column: 2;
+    max-width: none;
+  }
+
+  .draw-stage {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    margin-top: 0;
+    transform: none;
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-shell {
+    width: min(680px, calc(100% - 40px));
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 32px 0 48px;
+  }
+
+  .intro {
+    grid-column: 1;
+    max-width: none;
+    padding: 0;
+  }
+
+  .brand {
+    margin-bottom: 48px;
+  }
+
+  .intro h1 {
+    max-width: 560px;
+    font-size: clamp(42px, 8vw, 58px);
+  }
+
+  .intro-text {
+    max-width: 520px;
+  }
+
+  .form-card {
+    grid-column: 1;
+    max-width: 680px;
+    justify-self: center;
+  }
+
+  body::before {
+    background:
+      linear-gradient(180deg, rgb(5 10 25 / 36%), #050a19 58%),
+      url("/loto-drum.png") center top / auto 720px no-repeat;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-shell {
+    width: calc(100% - 32px);
+    gap: 18px;
+    padding: 24px 0 32px;
+  }
+
+  .brand {
+    margin-bottom: 48px;
+  }
+
+  .intro h1 {
+    margin-top: 14px;
+    font-size: clamp(39px, 11vw, 50px);
+  }
+
+  .intro-text {
+    font-size: 14px;
+  }
+
+  .form-card {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+
+  .field-full {
+    grid-column: auto;
+  }
+
+  .draw-stage {
+    min-height: 270px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
