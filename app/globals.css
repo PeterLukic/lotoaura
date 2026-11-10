@@ -228,16 +228,20 @@ textarea {
 
 .form-grid input::placeholder,
 .form-grid textarea::placeholder {
-  color: #748099;
+  color: #e7e1e1;
 }
 
 .form-grid select:invalid {
-  color: #748099;
+  color: #e7e1e1;
 }
 
-.form-grid select option {
-  background: #10182e;
-  color: #f4f7ff;
+.form-grid select {
+  appearance: none;
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23c1cadd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
 }
 
 .form-grid textarea {
@@ -465,6 +469,30 @@ textarea {
   line-height: 1.6;
   text-align: center;
 }
+
+.draw-column {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.draw-heading {
+  width: 100%;
+  text-align: center;
+}
+
+.draw-heading h2 {
+  margin: 0;
+  color: #f4f7ff;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
 
 @keyframes draw-spin {
   to {

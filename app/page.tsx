@@ -182,10 +182,14 @@ export default function Home() {
           Your <span>lucky numbers.</span>
         </h1>
 
+
+
         <p className="intro-text">
           Share a few details about yourself. LotoAura will use your horoscope
           to create a personal number reading.
         </p>
+
+
 
         <div className="range-badge">
           <span className="range-number">
@@ -195,12 +199,18 @@ export default function Home() {
         </div>
       </section>
 
+
       <section className="form-card">
         <div className="form-heading">
           <p className="eyebrow">YOUR PERSONAL READING</p>
           <h2>Tell us about yourself</h2>
           <p>We’ll use these details to prepare your AI-inspired result.</p>
         </div>
+
+
+
+        <div className="draw-stage" aria-live="polite"></div>
+
 
         <form className="form-grid" onSubmit={handleSubmit}>
           <label>
@@ -373,8 +383,11 @@ export default function Home() {
             <span aria-hidden="true">→</span>
           </button>
 
+
+
           <div className="draw-stage field-full" aria-live="polite">
-       
+
+
 
             {isLoading ? (
               <div className="draw-animation" role="status">
@@ -408,7 +421,7 @@ export default function Home() {
             ) : (
               <div className="draw-idle">
                 <span className="draw-idle-ball">✦</span>
-                <p>Your numbers will appear here</p>
+                <p>Your LotoAura Numbers will appear here</p>
               </div>
             )}
           </div>
